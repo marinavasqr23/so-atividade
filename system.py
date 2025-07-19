@@ -108,6 +108,10 @@ class FileSystem:
             print(f"[{user}] Sem permissão para escrita.")
 
     def set_file_permission(self, path, user_alvo, permission, admin='root'):
+        # Permite alterar permissões apenas se o usuário for "admin"
+        if admin != 'admin':
+            print(f"[{admin}] Sem permissão para alterar permissões.")
+            return
         parent_dir, filename = self._navigate_to_dir(path)
         file = parent_dir.find_file(filename)
         if not file:
