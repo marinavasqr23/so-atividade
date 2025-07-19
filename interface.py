@@ -39,6 +39,7 @@ delete <nome_arquivo>    - Deleta o arquivo
 chmod <arquivo> <usuario> <perm> - Ajusta permissões no arquivo
 help                    - Mostra esta ajuda
 exit                    - Sai do simulador
+journal                 - Exibe o conteúdo do journal (log) do sistema
             """)
 
         elif comando == "mkdir":
