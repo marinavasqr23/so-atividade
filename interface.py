@@ -37,9 +37,9 @@ read <nome_arquivo>      - Mostra o conteúdo do arquivo
 write <nome_arquivo>     - Escreve conteúdo no arquivo
 delete <nome_arquivo>    - Deleta o arquivo
 chmod <arquivo> <usuario> <perm> - Ajusta permissões no arquivo
+journal                 - Exibe o conteúdo do journal (log) do sistema
 help                    - Mostra esta ajuda
 exit                    - Sai do simulador
-journal                 - Exibe o conteúdo do journal (log) do sistema
             """)
 
         elif comando == "mkdir":
@@ -97,6 +97,17 @@ journal                 - Exibe o conteúdo do journal (log) do sistema
                 continue
             file_path = normalize_path(args[0])
             fs.set_file_permission(file_path, args[1], args[2], admin=user)
+
+        elif comando == "journal":
+            if not fs.journal:
+                print("O journal está vazio.")
+            else:
+                print("Conteúdo do journal:")
+                for i, entry in enumerate(fs.journal, 1):
+                    content_preview = entry.content
+                    if content_preview is not None and len(str(content_preview)) > 20:
+                        content_preview = str(content_preview)[:20] + "..."
+                    print(f"{i}. Ação: {entry.action}, Arquivo: {entry.target}, Usuário: {entry.user}, Conteúdo: {content_preview}")
 
         else:
             print(f"Comando desconhecido: {comando}. Digite 'help' para ajuda.")
